@@ -16,7 +16,9 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 from decouple import config
 import dj_database_url
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'manage_post.apps.ManagePostConfig',
     'user.apps.UserConfig',
     'ckeditor',
+    'cloudinary',
     'django_cleanup.apps.CleanupConfig',
 ]
 
@@ -170,3 +173,9 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+cloudinary.config(
+    cloud_name=config('cloud_name'),
+    api_key=config('api_key', cast=int),
+    api_secret=config('api_secret'),
+)
