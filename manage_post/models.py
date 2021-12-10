@@ -2,14 +2,13 @@ from django.db import models
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from ckeditor.fields import RichTextField
-from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
 #Categoría
 class Category(models.Model):
     name = models.CharField(max_length=20)
-    image = CloudinaryField('image')
+    image = models.ImageField(blank=False, null=False)
     slug = models.SlugField(unique=True, max_length=40)
     featured = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
